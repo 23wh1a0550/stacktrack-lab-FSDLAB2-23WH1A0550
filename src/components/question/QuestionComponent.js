@@ -16,7 +16,6 @@ function QuestionComponent() {
   return (
     <div>
       <h2>Task ID: {id}</h2>
-
       <button onClick={deleteTask}>Delete</button>
       <button onClick={() => navigate("/tasks")}>Back</button>
     </div>
