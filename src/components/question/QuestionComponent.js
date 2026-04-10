@@ -1,24 +1,24 @@
-import React from 'react';
-
-// TODO: Import any API functions you need from '../../api/client'
-// Example: import { get, post } from '../../api/client';
-
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 function QuestionComponent() {
-  // TODO: Define state variables needed for your question set
-  
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const deleteTask = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      navigate("/tasks");
 
-  // TODO: Implement data fetching inside a useEffect hook
-  
-
-  // TODO: Implement any event handlers required by your question set
-  
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div>
-      {/* TODO: Replace this placeholder with your question set UI */}
-      <p>QuestionComponent placeholder — implement your assigned question set here.</p>
+      <h2>Task ID: {id}</h2>
 
-      {/* TODO: Render fetched data or form elements as required */}
+      <button onClick={deleteTask}>Delete</button>
+      <button onClick={() => navigate("/tasks")}>Back</button>
     </div>
   );
 }

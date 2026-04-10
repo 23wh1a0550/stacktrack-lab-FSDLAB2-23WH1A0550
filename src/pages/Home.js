@@ -1,19 +1,49 @@
-import React from 'react';
-
-// TODO: Replace placeholder values with actual student and lab identifiers
-const STUDENT_ID = 'STUDENT_ID_PLACEHOLDER';
-const LAB_ID = 'LAB_ID_PLACEHOLDER';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+const STUDENT_ID = "23WH1A0550";
+const LAB_ID = "TASK_LAB";
 
 function Home() {
+  const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/tasks")
+      .then(res => setTasks(res.data))
+      .catch(err => console.log(err));
+  }, []);
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      setTasks(prev => prev.filter(task => task._id !== id));
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <h1>Stack Track Lab</h1>
       <p>Student ID: {STUDENT_ID}</p>
       <p>Lab ID: {LAB_ID}</p>
 
-      {/* TODO: Replace this placeholder with your question set UI */}
-      <p>QuestionComponent placeholder — implement your assigned question set here.</p>
+      <h2>All Tasks</h2>
 
+      {tasks.map(task => (
+        <div key={task._id}>
+          {task._id}
+
+          <button onClick={() => navigate(`/tasks/${task._id}`)}>
+            View
+          </button>
+
+          <button onClick={() => deleteTask(task._id)}>
+            Delete
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

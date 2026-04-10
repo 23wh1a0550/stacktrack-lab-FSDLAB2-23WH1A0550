@@ -1,14 +1,8 @@
-import React from 'react';
-import Home from './pages/Home';
 
-function App() {
-  return (
-    <div>
-      <Home />
+import Home from "./pages/Home";
+import QuestionPage from "./pages/QuestionPage";
 
-      {/* TODO: Replace this placeholder with Routes */}
-    </div>
-  );
-}
-
-export default App;
+<Routes>
+  <Route path="/tasks" element={<Home />} />
+  <Route path="/tasks/:id" element={<QuestionPage />} />
+</Routes>
