@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 const STUDENT_ID = "23WH1A0550";
@@ -9,13 +8,16 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/tasks")
-      .then(res => setTasks(res.data))
+    fetch("http://localhost:5000/api/tasks")
+      .then(res => res.json())
+      .then(data => setTasks(data))
       .catch(err => console.log(err));
   }, []);
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await fetch(`http://localhost:5000/api/tasks/${id}`, {
+        method: "DELETE"
+      });
       setTasks(prev => prev.filter(task => task._id !== id));
 
     } catch (err) {

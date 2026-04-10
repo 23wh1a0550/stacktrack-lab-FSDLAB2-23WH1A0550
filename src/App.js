@@ -1,8 +1,15 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./pages/Home";
 import QuestionPage from "./pages/QuestionPage";
 
-<Routes>
-  <Route path="/tasks" element={<Home />} />
-  <Route path="/tasks/:id" element={<QuestionPage />} />
-</Routes>
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tasks/:id" element={<QuestionPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

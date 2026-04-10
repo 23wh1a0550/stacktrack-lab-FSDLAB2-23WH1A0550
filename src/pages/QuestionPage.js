@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
 function QuestionPage() {
@@ -7,7 +6,9 @@ function QuestionPage() {
 
   const deleteTask = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await fetch(`http://localhost:5000/api/tasks/${id}`, {
+        method: "DELETE"
+      });
       navigate("/tasks");
 
     } catch (err) {
